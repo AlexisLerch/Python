@@ -1,10 +1,14 @@
 def menu():
     while True:
+        print('______________________________')
         print('MENU PRINCIPAL')
-        print('1 : Cipher')
+        print('1: Cipher')
         print('2: Luhn')
         print('3: Expenses tracker')
+        print('4: Case converter')
+        print('5: Square root')
         print('0: Para salir')
+        print('______________________________')
 
         opcion = input("Por favor ingrese una opcion: ")
 
@@ -41,11 +45,13 @@ def menu():
                 
             def decrypt(message, key):
                 return vigenere(message, key, -1)
-
+            
+            print('______________________________')
             text2 = input("ingresa el codigo " + f'({text})' + " para decifrar: ")
             #print(f'\nEncrypted text: {text}')
             print(f'Key: {custom_key}')
             decryption = decrypt(text2, custom_key)
+            print('______________________________')
             print(f'\nDecrypted text: {decryption}\n')
             
         elif opcion == '2':
@@ -73,10 +79,14 @@ def menu():
                 translated_card_number = card_number.translate(card_translation)
 
                 if verify_card_number(translated_card_number):
+                    print('______________________________')
                     print('--------------VALID!--------------')
+
                     
                 else:
+                    print('______________________________')
                     print('--------------INVALID!--------------')
+
                     
 
             main()
@@ -99,28 +109,36 @@ def menu():
             def main():
                 expenses = []
                 while True:
+                    print('______________________________')
                     print('\nExpense Tracker')
                     print('1. Add an expense')
                     print('2. List all expenses')
                     print('3. Show total expenses')
                     print('4. Filter expenses by category')
                     print('5. Exit')
+                    print('______________________________')
                     
                     choice = input('Enter your choice: ')
 
                     if choice == '1':
+                        print('______________________________')
                         amount = float(input('Enter amount: '))
+                        print('______________________________')
                         category = input('Enter category: ')
                         add_expense(expenses, amount, category)
 
                     elif choice == '2':
+                        print('______________________________')
                         print('\nAll Expenses:')
                         print_expenses(expenses)
 
                     elif choice == '3':
+                        print('______________________________')
                         print('\nTotal Expenses: ', total_expenses(expenses))
+                        print('______________________________')
 
                     elif choice == '4':
+                        print('______________________________')
                         category = input('Enter category to filter: ')
                         print(f'\nExpenses for {category}:')
                         expenses_from_category = filter_expenses_by_category(expenses, category)
@@ -132,6 +150,70 @@ def menu():
 
 
             if __name__ == '__main__': main()
+            
+        elif opcion == '4':
+            def convert_to_snake_case(pascal_or_camel_cased_string):
+
+                snake_cased_char_list = [
+                    '_' + char.lower() if char.isupper()
+                    else char
+                    for char in pascal_or_camel_cased_string
+                ]
+
+                return ''.join(snake_cased_char_list).strip('_')
+
+            def main():
+                print('______________________________')
+                print(convert_to_snake_case(input('Ingrese un texto sin separar con su primer letra de cada palabra en mayuscula para convertirlo en snake case: ')))
+                print('______________________________')
+                
+
+            if __name__ == '__main__':
+                main()
+
+        elif opcion == '5':
+            def square_root_bisection(square_target, tolerance=1e-7, max_iterations=100):
+                if square_target < 0:
+                    raise ValueError('Square root of negative number is not defined in real numbers')
+                if square_target == 1:
+                    root = 1
+                    print('______________________________')
+                    print(f'The square root of {square_target} is 1')
+                    print('______________________________')
+                elif square_target == 0:
+                    root = 0
+                    print('______________________________')
+                    print(f'The square root of {square_target} is 0')
+                    print('______________________________')
+
+                else:
+                    low = 0
+                    high = max(1, square_target)
+                    root = None
+                    
+                    for _ in range(max_iterations):
+                        mid = (low + high) / 2
+                        square_mid = mid**2
+
+                        if abs(square_mid - square_target) < tolerance:
+                            root = mid
+                            break
+
+                        elif square_mid < square_target:
+                            low = mid
+                        else:
+                            high = mid
+
+                    if root is None:
+                        print(f"Failed to converge within {max_iterations} iterations.")
+                
+                    else:   
+                        print(f'The square root of {square_target} is approximately {root}')
+                
+                return root
+            print('______________________________')
+            square_root_bisection(int(input('De que numero quieres saber la raiz cuadrada: ')))
+            print('______________________________')
             
         elif opcion == '0':
             print('Programa finalizado')
