@@ -12,6 +12,7 @@ def menu():
         print('4: Case converter')
         print('5: Square root')
         print('6: Generador de contraseña con expreciones regulares')
+        print('7: Torre de Hanoi con recursividad')
         print('0: Para salir')
         print('______________________________')
 
@@ -255,7 +256,29 @@ def menu():
             if __name__ == '__main__':
                 new_password = generate_password()
                 print('Generated password:', new_password)
-            
+        elif opcion == '7':
+            NUMBER_OF_DISKS = 3
+            A = list(range(NUMBER_OF_DISKS, 0, -1))
+            B = []
+            C = []
+
+            def move(n, source, auxiliary, target):
+                if n <= 0:
+                    return
+                    # move n - 1 disks from source to auxiliary, so they are out of the way
+                move(n - 1, source, target, auxiliary)
+                    
+                    # move the nth disk from source to target
+                target.append(source.pop())
+                    
+                    # display our progress
+                print(A, B, C, '\n')
+                    
+                    # move the n - 1 disks that we left on auxiliary onto target
+                move(n - 1,  auxiliary, source, target)
+                          
+            # initiate call from source A to target C with auxiliary B
+            move(NUMBER_OF_DISKS, A, B, C)
         elif opcion == '0':
             print('Programa finalizado')
             break
